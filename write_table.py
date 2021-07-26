@@ -14,10 +14,16 @@ name = "Mohamad"
 body_paragraph1 = f"""
 Dear {name},
 
-Thank you very much for applying for our Teaching Assistant (TA) positions. We are in the process of finalizing the TA assignments for the first term of the 2021 Winter semester. I have the following TA offer for you:
+Thank you very much for applying for our Teaching Assistant (TA) positions.\
+ We are in the process of finalizing the TA assignments for the first term of the 2021 Winter semester.\
+I have the following TA offer for you:
 """
 body_paragraph2 = """
-The above hours are an average per week, for 7 weeks (1 week of which is during the final exam period). Hours worked in any one given week may be more or less than the above average. Please note that this is a salaried position and it is the responsibility of the TA and course instructor to manage working hours. If additional hours are required to complete a task, they must be pre-approved by the CMPS Department. Any hours submitted through Workday that was not approved prior will be denied.
+The above hours are an average per week, for 7 weeks (1 week of which is during the final exam period).\
+ Hours worked in any one given week may be more or less than the above average.\
+  Please note that this is a salaried position and it is the responsibility of the TA and course instructor to manage working hours.\
+   If additional hours are required to complete a task, they must be pre-approved by the CMPS Department.\
+    Any hours submitted through Workday that was not approved prior will be denied.
 
 """
 bold_scentence1 = "Note that this assignment extends throughout, and possibly beyond, the final exam period"

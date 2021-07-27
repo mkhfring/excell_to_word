@@ -67,8 +67,7 @@ The above hours are an average per week, for 7 weeks (1 week of which is during 
 ),
 
 (
-    """
-Lecturer
+    """Lecturer
 IKBSAS Department of Computer Science, Math, Physics, & Statistics
 The University of British Columbia | Okanagan Campus
 

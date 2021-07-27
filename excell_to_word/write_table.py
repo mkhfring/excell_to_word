@@ -56,5 +56,5 @@ for id, element1, element2 in fack_data:
 for element in template:
     create_template(doc, element) 
 
-doc.save("test_doc.docx")
+doc.save("data/test_doc.docx")
 os.system("start test_doc.docx")

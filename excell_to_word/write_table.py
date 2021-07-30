@@ -1,6 +1,6 @@
 import os
 import docx
-from tempelate import SentenceElement, template
+from excell_to_word.tempelate import SentenceElement, template
 
 paragraphs = []
 
@@ -57,4 +57,4 @@ for element in template:
     create_template(doc, element) 
 
 doc.save("data/test_doc.docx")
-os.system("start test_doc.docx")
+os.system("start data/test_doc.docx")

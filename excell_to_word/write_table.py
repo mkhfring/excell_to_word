@@ -1,17 +1,23 @@
 import os
+import glob
+
 import docx
+
 from excell_to_word.tempelate import SentenceElement, template
+from excell_to_word.students import TA
+
 
 paragraphs = []
 
-name = "Mohamad"
-paragraph1 = f"""
+
+def create_first_paragraph(document, name):
+    paragraph1 = f"""
 Dear {name},
 
-Thank you very much for applying for our Teaching Assistant (TA) positions.\
- We are in the process of finalizing the TA assignments for the first term\
-  of the 2021 Winter semester. I have the following TA offer for you:
-"""
+Thank you very much for applying for our Teaching Assistant (TA) positions. \
+We are in the process of finalizing the TA assignments for the first term of the 2021 Winter semester. \
+I have the following TA offer for you:  """
+    document.add_paragraph(paragraph1)
 
 
 def create_template(document, element):
@@ -37,24 +43,47 @@ def create_template(document, element):
         p.add_run(element[0]).underline = True
 
 
-fack_data = [
-    [1, "first record", "second recod"],
-    [2, "third record", "fourth recod"]
-]
-doc = docx.Document()
-doc.add_paragraph(paragraph1)
+def add_table(document, student, headers):
+    document.add_paragraph(f" {student.duty_hours} hrs/wk for following:")
+    assignments_headers = student.assignments[0].__dict__.keys()
+    some_table = document.add_table(1, len(headers))
+    some_table.style = "Table Grid"
+    first_row_cells = some_table.rows[0].cells
+    for index, header in enumerate(headers):
+        if header in ["TA", "Student No.", "Email"]:
+            continue
+        first_row_cells[index].text = str(header)
 
-some_table = doc.add_table(1, 3)
-some_table.style = "Table Grid"
-for id, element1, element2 in fack_data:
-    row_cells = some_table.add_row().cells
-    row_cells[0].text = str(id)
-    row_cells[1].text = element1
-    row_cells[2].text = element2
+    for index, assignment in enumerate(student.assignments):
+        nex_cell = some_table.add_row().cells
+        for index, header in enumerate(assignments_headers):
+            assert 1 == 1
+            nex_cell[index].text = str(getattr(assignment, header))
 
 
-for element in template:
-    create_template(doc, element) 
+def create_second_paragraph(document, content):
+    for element in content:
+        create_template(document, element)
 
-doc.save("data/test_doc.docx")
-os.system("start data/test_doc.docx")
+
+def main():
+    ta = TA("data/ta_data.xlsx")
+    files = glob.glob('data/*')
+    for f in files:
+        if f.endswith(".xlsx"):
+            continue
+
+        os.remove(f)
+    for student in ta.students:
+        doc = docx.Document()
+        create_first_paragraph(doc, student.name)
+        add_table(doc, student, ta.data_frame.columns[3:])
+        create_second_paragraph(doc, template)
+        doc.save(f"data/{student.name}.docx")
+        #os.system("start data/test_doc.docx")
+
+
+if __name__ == "__main__":
+    main()
+
+

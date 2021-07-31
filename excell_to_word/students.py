@@ -8,6 +8,7 @@ class Student:
         self.name = name
         self.email = email
         self.assignments = []
+        self.duty_hours = 0
 
 
 class Assignment:
@@ -45,7 +46,7 @@ class TA:
     def create_student(self):
         student = None
         for index, row in self.data_frame.iterrows():
-            if not pd.isna(row[-1]):
+            if not pd.isna(row[-1]) and not row["TA"] == "TA":
                 if not pd.isna(row["TA"]):
                     student = Student(name=row["TA"], email=row["Email"])
                     self.students.append(student)
@@ -60,6 +61,7 @@ class TA:
                     end_time=row["End time"],
                     hours=row["TA Hours"],
                 )
+                student.duty_hours += int(row["TA Hours"])
                 student.assignments.append(assignment)
 
         return self

@@ -67,14 +67,14 @@ def create_second_paragraph(document, content):
     for element in content:
         create_template(document, element)
 
-@click.command()
-@click.option('--path', default="data/ta_data.xlsx",
-              help='number of greetings')
 
+@click.command()
+@click.option('--path', default="excell_to_word/data/ta_data.xlsx",
+              help='number of greetings')
 def main(path):
     print(path)
     # ta = TA("data/ta_data.xlsx")
-    ta = TA(os.path.join(HERE, path))
+    ta = TA(os.path.join(path))
     files = glob.glob('data/*')
     for f in files:
         if f.endswith(".xlsx"):
@@ -87,7 +87,6 @@ def main(path):
         add_table(doc, student, ta.data_frame.columns[3:])
         create_second_paragraph(doc, template)
         doc.save(os.path.join(HERE, f"data/{student.name}.docx"))
-        #os.system("start data/test_doc.docx")
 
 
 if __name__ == "__main__":

@@ -2,11 +2,13 @@ import os
 import glob
 
 import docx
+import click
 
 from excell_to_word.tempelate import SentenceElement, template
 from excell_to_word.students import TA
 
 
+HERE = os.path.dirname(os.path.realpath(__file__))
 paragraphs = []
 
 
@@ -65,9 +67,14 @@ def create_second_paragraph(document, content):
     for element in content:
         create_template(document, element)
 
+@click.command()
+@click.option('--path', default="data/ta_data.xlsx",
+              help='number of greetings')
 
-def main():
-    ta = TA("data/ta_data.xlsx")
+def main(path):
+    print(path)
+    # ta = TA("data/ta_data.xlsx")
+    ta = TA(os.path.join(HERE, path))
     files = glob.glob('data/*')
     for f in files:
         if f.endswith(".xlsx"):
@@ -79,7 +86,7 @@ def main():
         create_first_paragraph(doc, student.name)
         add_table(doc, student, ta.data_frame.columns[3:])
         create_second_paragraph(doc, template)
-        doc.save(f"data/{student.name}.docx")
+        doc.save(os.path.join(HERE, f"data/{student.name}.docx"))
         #os.system("start data/test_doc.docx")
 
 

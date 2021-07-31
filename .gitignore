@@ -15,7 +15,6 @@ downloads/
 eggs/
 .eggs/
 .idea/
-data/
 lib/
 lib64/
 parts/
@@ -56,6 +55,7 @@ cover/
 # Translations
 *.mo
 *.pot
+*.docx
 
 # Django stuff:
 *.log

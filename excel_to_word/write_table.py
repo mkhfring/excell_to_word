@@ -4,8 +4,8 @@ import glob
 import docx
 import click
 
-from excell_to_word.tempelate import SentenceElement, template
-from excell_to_word.students import TA
+from excel_to_word.tempelate import SentenceElement, template
+from excel_to_word.students import TA
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))

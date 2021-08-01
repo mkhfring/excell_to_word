@@ -18,7 +18,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'excell_to_word = excell_to_word.write_table:main'
+            'excel_to_word = excel_to_word.write_table:main'
         ]
     },
 )

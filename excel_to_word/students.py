@@ -4,9 +4,10 @@ import pandas as pd
 
 class Student:
 
-    def __init__(self, name, email=None):
+    def __init__(self, name, student_id, email=None):
         self.name = name
         self.email = email
+        self.student_id = student_id
         self.assignments = []
         self.duty_hours = 0
 
@@ -48,7 +49,7 @@ class TA:
         for index, row in self.data_frame.iterrows():
             if not pd.isna(row[-1]) and not row["TA"] == "TA":
                 if not pd.isna(row["TA"]):
-                    student = Student(name=row["TA"], email=row["Email"])
+                    student = Student(name=row["TA"], email=row["Email"], student_id=row["Student no."])
                     self.students.append(student)
 
                 assignment = Assignment(
@@ -68,6 +69,6 @@ class TA:
 
 
 if __name__ == '__main__':
-    ta = TA("data/ta_data.xlsx")
+    ta = TA("data/test.xlsx")
 
     assert 1 == 1

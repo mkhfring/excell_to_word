@@ -2,6 +2,7 @@ import os
 import glob
 import re
 import copy
+import threading
 
 import docx
 import click
@@ -64,34 +65,6 @@ def replace_tokens(paraghraph, student):
 @click.option('--path', default=os.path.join(HERE, "data/test.xlsx"),
               help='number of greetings')
 def main(path):
-    # print(path)
-    # ta = TA(os.path.join(path))
-    # files = glob.glob(os.path.join(HERE, 'data/*'))
-    # for f in files:
-    #     if f.endswith(".xlsx"):
-    #         continue
-    #
-    #     os.remove(f)
-    #
-    # input = docx.Document(os.path.join(HERE, "templates/offer.docx"))
-    # input_paragraphs = [paragraph for paragraph in input.paragraphs]
-    #
-    # for student in ta.students:
-    #     doc = docx.Document()
-    #     for paragraph in input_paragraphs:
-    #         if paragraph.text == "":
-    #             continue
-    #         if paragraph.text == "\n":
-    #             continue
-    #
-    #         if paragraph.text.lower() == "table":
-    #             add_table(doc, student, ta.data_frame.columns[3:])
-    #             continue
-    #
-    #         paragraph = replace_tokens(paragraph, student)
-    #         handel_paraghraph(doc, paragraph)
-    #
-    #     doc.save(os.path.join(HERE, f"data/{student.name}.docx"))
     files = glob.glob(os.path.join(HERE, 'data/*'))
     for f in files:
         if os.path.isdir(f):
@@ -107,12 +80,16 @@ def main(path):
         os.path.join(HERE, "templates/letters.docx"),
         os.path.join(HERE, "templates/letters_temp.docx")
     )
-    official_letter.create_output()
+    t1 = threading.Thread(target=official_letter.create_output)
+    t1.start()
+    #official_letter.create_output()
     offer_letter = OfferLetter(
         os.path.join(HERE, "data/test.xlsx"),
         os.path.join(HERE, "templates/offer.docx"),
     )
-    offer_letter.create_output()
+    t = threading.Thread(target=offer_letter.create_output)
+    t.start()
+    #offer_letter.create_output()
 
 
 if __name__ == "__main__":

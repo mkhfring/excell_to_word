@@ -94,6 +94,7 @@ class OfferLetter(Letter):
             self.handel_paragraphs(doc, paragraph, type=1)
 
         doc.save(os.path.join(HERE, f"data/{student.name}.docx"))
+        print(f"The document for {student.name} is saved")
 
     def replace_token(self, paraghraph, student):
         new_paragraph = copy.deepcopy(paraghraph)
@@ -136,6 +137,7 @@ class OfficialLetter(Letter):
             self.handel_paragraphs(doc, paragraph, type=1)
 
         doc.save(os.path.join(HERE, f"data/OfficialLetters/{student.name}.docx"))
+        print(f"The document for {student.name} is saved")
 
     def replace_token(self, paraghraph, student):
 

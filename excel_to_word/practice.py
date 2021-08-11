@@ -24,7 +24,6 @@ def handel_paraghraph(document):
     para.stype = document.styles['Normal']
 
 
-
 input = Document("templates/letters.docx")
 out_put = Document("templates/letters_temp.docx")
 footer = out_put.sections[0].footer

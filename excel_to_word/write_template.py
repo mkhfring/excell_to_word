@@ -11,20 +11,27 @@ HERE = os.path.dirname(os.path.realpath(__file__))
 paragraphs = []
 
 
+def delete_previous_files(path):
+    dirs = os.listdir(path)
+    for element in dirs:
+        new_path = os.path.join(path, element)
+        if os.path.isfile(new_path):
+            if new_path.endswith(".xlsx"):
+                continue
+
+            os.remove(new_path)
+        if os.path.isdir(new_path):
+            delete_previous_files(new_path)
+
+
+
+
 @click.command()
 @click.option('--path', default=os.path.join(HERE, "data/test.xlsx"),
               help='number of greetings')
 def main(path):
-    files = glob.glob(os.path.join(HERE, 'data/*'))
-    for f in files:
-        if os.path.isdir(f):
-            continue
 
-        if f.endswith(".xlsx"):
-            continue
-
-        os.remove(f)
-
+    delete_previous_files(os.path.join(HERE, "data"))
     official_letter = OfficialLetter(
         os.path.join(HERE, "data/main_data.xlsx"),
         os.path.join(HERE, "templates/letters.docx"),

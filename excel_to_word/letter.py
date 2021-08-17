@@ -230,18 +230,18 @@ class OfficialLetter(Letter):
         for key, value in student.assigned_courses.items():
             doc.add_paragraph(f"{value[0]} ({value[1]}{key})")
 
-
-if __name__ == '__main__':
-
-    letter = OfficialLetter(
-        os.path.join(HERE, "data/main_data.xlsx"),
-        os.path.join(HERE, "templates/letters.docx"),
-        os.path.join(HERE, "templates/letters_temp.docx")
-    )
-    letter.create_output()
-    letter = OfferLetter(
-        os.path.join(HERE, "data/main_data.xlsx"),
-        os.path.join(HERE, "templates/offer.docx"),
-    )
-    letter.create_output()
-    assert 1 == 1
+#
+# if __name__ == '__main__':
+#
+#     letter = OfficialLetter(
+#         os.path.join(HERE, "data/main_data.xlsx"),
+#         os.path.join(HERE, "templates/letters.docx"),
+#         os.path.join(HERE, "templates/letters_temp.docx")
+#     )
+#     letter.create_output()
+#     letter = OfferLetter(
+#         os.path.join(HERE, "data/main_data.xlsx"),
+#         os.path.join(HERE, "templates/offer.docx"),
+#     )
+#     letter.create_output()
+#     assert 1 == 1

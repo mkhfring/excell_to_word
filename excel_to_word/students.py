@@ -115,8 +115,8 @@ class TA:
 
         return self
 
-
-if __name__ == '__main__':
-    ta = TA("data/main_data.xlsx")
-
-    assert 1 == 1
+#
+# if __name__ == '__main__':
+#     ta = TA("data/main_data.xlsx")
+#
+#     assert 1 == 1

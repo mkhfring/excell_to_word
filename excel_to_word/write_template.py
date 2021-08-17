@@ -27,13 +27,14 @@ def delete_previous_files(path):
 
 
 @click.command()
-@click.option('--path', default=os.path.join(HERE, "data/test.xlsx"),
+@click.option('--path', default=os.path.join(HERE, "data/main_data.xlsx"),
               help='number of greetings')
 def main(path):
+    print(f"The inserted path is {path}")
 
     delete_previous_files(os.path.join(HERE, "data"))
     official_letter = OfficialLetter(
-        os.path.join(HERE, "data/main_data.xlsx"),
+        path,
         os.path.join(HERE, "templates/letters.docx"),
         os.path.join(HERE, "templates/letters_temp.docx")
     )
@@ -41,7 +42,7 @@ def main(path):
     t1.start()
     official_letter.create_output()
     offer_letter = OfferLetter(
-        os.path.join(HERE, "data/main_data.xlsx"),
+        path,
         os.path.join(HERE, "templates/offer.docx"),
     )
     t = threading.Thread(target=offer_letter.create_output)
@@ -49,5 +50,5 @@ def main(path):
     offer_letter.create_output()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

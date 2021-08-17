@@ -5,7 +5,7 @@ import re
 # reading package's version (same way sqlalchemy does)
 
 setup(
-    name='async_requet',
+    name='excel_to_word',
     author='Mohamad Khajezade',
     author_email='khajezade.mohamad@gmail.com',
     description='A package to read information from excell and write them in a docx',

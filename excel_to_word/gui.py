@@ -40,6 +40,10 @@ def get_template(type):
         lable = tk.Label(frame, text="offer leeter template file is received", bg="gray")
         lable.pack()
 
+def get_output():
+    out_directory = filedialog.askdirectory()
+    files_name["output"] = out_directory
+
 
 root = tk.Tk()
 #canvas = tk.Canvas(root, height=400, width=400, bg="green")
@@ -71,7 +75,16 @@ offer_button = tk.Button(
     fg='Blue',
     command=partial(get_template, 'offer')
 )
+output_button = tk.Button(
+    frame,
+    text="Please Specify the output directory",
+    padx=10,
+    pady=5,
+    fg='Blue',
+    command=get_output
+)
 data_button.pack()
 offer_button.pack()
 official_button.pack()
+output_button.pack()
 root.mainloop()

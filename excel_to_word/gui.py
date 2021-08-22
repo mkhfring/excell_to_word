@@ -1,4 +1,5 @@
 import os
+from functools import partial
 
 import tkinter as tk
 from tkinter import filedialog, Text
@@ -17,15 +18,27 @@ def get_data():
     lable.pack()
 
 
-def get_template():
-    template_path = filedialog.askopenfilename(
-        initialdir=".",
-        title="Select excel file",
-        filetypes=(("template files", "*.docx"), ("all files", "*.*"))
-    )
-    files_name['template'] = template_path
-    lable = tk.Label(frame, text="template file is received", bg="gray")
-    lable.pack()
+def get_template(type):
+    print(type)
+    if type == "official":
+        template_path = filedialog.askopenfilename(
+            initialdir=".",
+            title="Select official letter template file",
+            filetypes=(("template files", "*.docx"), ("all files", "*.*"))
+        )
+        files_name['official'] = template_path
+        lable = tk.Label(frame, text="official letter template file is received", bg="gray")
+        lable.pack()
+
+    if type =="offer":
+        template_path = filedialog.askopenfilename(
+            initialdir=".",
+            title="Select offer letter template file",
+            filetypes=(("template files", "*.docx"), ("all files", "*.*"))
+        )
+        files_name['offer'] = template_path
+        lable = tk.Label(frame, text="offer leeter template file is received", bg="gray")
+        lable.pack()
 
 
 root = tk.Tk()
@@ -42,14 +55,23 @@ data_button = tk.Button(
     command=get_data
 )
 
-template_button = tk.Button(
+official_button = tk.Button(
     frame,
-    text="Please Select the template File",
+    text="Please Select the official letter template File",
     padx=10,
     pady=5,
     fg='Blue',
-    command=get_template
+    command=partial(get_template, 'official')
+)
+offer_button = tk.Button(
+    frame,
+    text="Please Select the offer letter template File",
+    padx=10,
+    pady=5,
+    fg='Blue',
+    command=partial(get_template, 'offer')
 )
 data_button.pack()
-template_button.pack()
+offer_button.pack()
+official_button.pack()
 root.mainloop()

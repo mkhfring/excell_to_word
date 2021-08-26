@@ -63,13 +63,28 @@ class ExcelToWordGui:
 
     def run_project(self):
         self.text.set("Start the process of creating output files")
-        offer_letter = OfferLetter(
-            self.input_files["data"],
-            self.input_files["offer"],
-        )
-        t = threading.Thread(target=offer_letter.create_output)
-        t.start()
-        self.text.set("output files are created")
+        try:
+            data = self.input_files["data"]
+        except Exception as e:
+            self.text.set("The excel file is not attached")
+            raise e
+
+        if self.input_files.get("offer"):
+            offer_letter = OfferLetter(
+                self.input_files["data"],
+                self.input_files["offer"],
+            )
+            t = threading.Thread(target=offer_letter.create_output)
+            t.start()
+            self.text.set("output files are created")
+        if self.input_files.get("official"):
+            official_letter = OfficialLetter(
+                self.input_files["data"],
+                self.input_files["official"],
+                os.path.join(HERE, "templates/letters_temp.docx")
+            )
+            t1 = threading.Thread(target=official_letter.create_output)
+            t1.start()
 
 
     def change_text(self):

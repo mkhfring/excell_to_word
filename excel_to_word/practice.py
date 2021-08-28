@@ -3,6 +3,7 @@ from docx.shared import Pt
 import re
 
 
+""" 
 def handel_paraghraph(document):
     para = document.add_paragraph()
     for run in paragraph.runs:
@@ -56,3 +57,7 @@ for paragraph in input.paragraphs:
 #     out_put.sections[0].header.paragraphs[index].text = paragraph.text
 
 out_put.save("output.docx")
+"""
+doc = Document("templates/output.docx")
+doc.add_paragraph("This is a test paragraph", style="List Bullet")
+doc.save("templates/output.docx")

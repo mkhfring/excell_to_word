@@ -37,18 +37,20 @@ def main(path):
         path,
         os.path.join(HERE, "templates/letters.docx"),
         os.path.join(HERE, "templates/letters_temp.docx")
+        #os.path.join(HERE, "templates/output.docx")
+
     )
-    t1 = threading.Thread(target=official_letter.create_output)
-    t1.start()
-    #official_letter.create_output()
+    #t1 = threading.Thread(target=official_letter.create_output)
+    #t1.start()
+    official_letter.create_output()
     offer_letter = OfferLetter(
         path,
         os.path.join(HERE, "templates/offer.docx"),
     )
-    t = threading.Thread(target=offer_letter.create_output)
-    t.start()
-    #offer_letter.create_output()
+    #t = threading.Thread(target=offer_letter.create_output)
+    #t.start()
+    offer_letter.create_output()
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+     main()

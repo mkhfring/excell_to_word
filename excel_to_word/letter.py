@@ -4,7 +4,7 @@ import os
 import re
 
 import docx
-from docx.shared import Pt
+from docx.shared import Pt, RGBColor
 import pandas as pd
 
 from excel_to_word.students import TA, required_headers
@@ -31,7 +31,16 @@ class Letter:
         self.paragraphs = template_paragraphs
         self.ta_assignment = TA(data_path)
 
-    def add_table(self, document, student):
+    def add_table(self, document, student, type='normal'):
+        if type == "bullet":
+
+            for index, assinment in enumerate(student.assignments):
+
+                document.add_paragraph(
+                    f'\n \t  {str(index + 1)}-  {assinment.subject}  {assinment.course} | {assinment.section} | {assinment.type} | {assinment.days_met} | {assinment.start_time} | {assinment.end_time} | {assinment.hours} |'
+                )
+            return
+
         document.add_paragraph(f" {student.duty_hours} hrs/wk for following:")
         assignments_headers = student.assignments[0].__dict__.keys()
         some_table = document.add_table(1, len(self.table_headers))
@@ -110,7 +119,7 @@ class OfferLetter(Letter):
         new_paragraph = copy.deepcopy(paraghraph)
         name_pattern = r"\[first_name\]"
         if re.search(name_pattern, new_paragraph.text):
-            replaced_text = re.sub(name_pattern, student.name.split(" ")[1], new_paragraph.text)
+            replaced_text = re.sub(name_pattern, student.name.split(", ")[1], new_paragraph.text)
             new_paragraph.text = replaced_text
 
         return new_paragraph
@@ -127,7 +136,7 @@ class OfficialLetter(Letter):
         for paragraph in self.paragraphs:
 
             if re.search("\[Table_\]", paragraph.text):
-                self.add_table(doc, student)
+                self.add_table(doc, student, type="bullet")
                 continue
             if re.search(r"\[Supervisor_\]", paragraph.text):
                 self.add_supervisor(doc, student)
@@ -149,10 +158,10 @@ class OfficialLetter(Letter):
         position_pattern = r"\[TA_Position_\]"
         salary_pattern = r"\[Salary_\]"
         total_hours_per_semester_patter = r"\[Total_Hours_In_Semester\]"
-        student_name = student.name.split(" ")
+        student_name = student.name.split(", ")
 
         if re.search(firstname_pattern, new_paragraph.text):
-            replaced_text = re.sub(firstname_pattern, student.name.split(" ")[1], new_paragraph.text)
+            replaced_text = re.sub(firstname_pattern, student.name.split(", ")[1], new_paragraph.text)
             new_paragraph.text = replaced_text
 
         if re.search(lastname_pattern, new_paragraph.text):
@@ -207,7 +216,7 @@ class OfficialLetter(Letter):
 
     def replace_footer(self, doc, student):
         footer = doc.sections[0].footer
-        name = student.name.split(" ")
+        name = student.name.split(", ")
         for paragraph in footer.paragraphs:
             if re.search("\[First_Name_\]", paragraph.text):
                 replaced_text = re.sub(
@@ -218,7 +227,7 @@ class OfficialLetter(Letter):
                         name[0] if len(name)>1 else name[0],
                         re.sub(
                             "\[First_Name_\]",
-                            student.name.split(" ")[1],
+                            student.name.split(", ")[1],
                             paragraph.text
                         )
                     )

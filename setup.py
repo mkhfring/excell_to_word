@@ -18,7 +18,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'excel_to_word = excel_to_word.write_template:main'
+            'excel_to_word = excel_to_word.write_template:main',
+            'create_letters = excel_to_word.write_template:letter'
         ]
     },
 )

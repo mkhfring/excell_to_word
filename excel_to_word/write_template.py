@@ -5,7 +5,7 @@ import threading
 import click
 
 from excel_to_word.letter import OfficialLetter, OfferLetter
-from excel_to_word.exam_letter import ExamLetter, MarkerLetter
+from excel_to_word.exam_letter import ExamLetter, MarkerLetter, InstructorLetter
 
 HERE = os.path.dirname(os.path.realpath(__file__))
 paragraphs = []
@@ -22,8 +22,6 @@ def delete_previous_files(path):
             os.remove(new_path)
         if os.path.isdir(new_path):
             delete_previous_files(new_path)
-
-
 
 
 @click.command()
@@ -54,17 +52,22 @@ def main(path):
 @click.command()
 @click.option('--path', default=os.path.join(HERE, "data/main_data.xlsx"),
               help='number of greetings')
-
 def letter(path):
+    print("Starting the procedure to create letters")
     delete_previous_files(os.path.join(HERE, "data"))
     marker_letter = MarkerLetter(
         path,
         os.path.join(HERE, "templates/students.docx"),
     )
     marker_letter.create_output()
-    print("Hello")
+    teacher_letter = InstructorLetter(
+        path,
+        os.path.join(HERE, "templates/instructors.docx"),
+    )
+    teacher_letter.create_output()
+    # print("Hello")
 
 
 if __name__ == "__main__":
-     # main()
+     main()
      letter()
